@@ -8,11 +8,6 @@ where the Git repository is the source of truth for everything that runs on it.
 
 ---
 
-## Why this exists
-
-Clicking commands into a terminal until a cluster works is not repeatable. This
-repo treats the cluster as cattle, not a pet:
-
 - **Pinned, scripted install** — same k3s version, same flags, every time.
 - **Declarative workloads** — plain Kubernetes manifests, applied with
   `kubectl -k` (Kustomize). No hidden state.
@@ -90,10 +85,10 @@ Tear it all down with `make uninstall` (removes k3s and every bit of state).
 
 | Decision | Why |
 |----------|-----|
-| **k3s over full kubeenetes** | Single binary, low memory footprint — ideal for a Pi. Still fully CNCF-conformant. |
+| **k3s over full kubeenetes** | Single binary, low memory footprint — ideal for a Pi. |
 | **Pinned k3s version** | Reproducibility. An unpinned `get.k3s.io` install drifts over time. |
-| **Kustomize, not Helm** | Zero extra tooling (built into kubectl), and the manifests stay readable. |
-| **podinfo as the demo app** | Small, multi-arch, and exposes real endpoints (`/healthz`, `/readyz`) so probes and the HPA are meaningful. |
+| **Kustomize, not Helm** | Zero extra tooling (built into kubectl) |
+| **podinfo as the demo app** | Small, multi-arch and exposes real endpoints (`/healthz`, `/readyz`) so probes and the HPA are meaningful. |
 | **CI validation** | `kubeconform` catches schema errors and `shellcheck` catches script bugs before they reach the cluster. |
 | **Hardened pod spec** | `runAsNonRoot`, read-only root FS, dropped capabilities — baseline Pod Security. |
 
@@ -103,10 +98,14 @@ See [`docs/architecture.md`](docs/architecture.md) for the longer version.
 
 ## Next steps / roadmap
 
-This is intentionally a lean foundation. Natural extensions:
+This is intentionally a lean foundation. I will use and expand this repo for CKAD exam practice. Among the planned extras are:
 
-- **GitOps** — hand `manifests/` to Argo CD or Flux so the cluster self-syncs
+- **Helm** - Introduce Helm for packaging.
+- **RBAC** - Role and Rolebinding practice.
+- **Sidecar** - For practicing sidecar operations.
+- **GitOps** — hand `manifests/` to Argo CD so the cluster self-syncs
   from this repo instead of a manual `make bootstrap`.
 - **TLS** — cert-manager + a real domain for HTTPS ingress.
 - **Observability** — kube-prometheus-stack for metrics and dashboards.
 - **Secrets** — Sealed Secrets or External Secrets so secrets can live in Git safely.
+- etc.
