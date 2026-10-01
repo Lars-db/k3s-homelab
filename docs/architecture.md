@@ -1,23 +1,15 @@
 # Architecture & design notes
 
-This document explains the *why* behind the choices in this repo — the kind of
-reasoning a platform engineer is expected to articulate.
+This document explains the *why* behind the choices in this repo.
 
 ## Cluster distribution: k3s
 
 [k3s](https://k3s.io) is a CNCF-certified Kubernetes distribution packaged as a
 single ~70MB binary. On a Raspberry Pi 5 (4 cores, 8GB RAM) a full upstream
-kubeadm install would waste resources on components we don't need. k3s bundles
-sane defaults:
+kubeadm install would waste resources on components we don't need.
 
-- **containerd** as the runtime (no Docker shim).
-- **Traefik** as the ingress controller.
-- **metrics-server** for resource metrics (required for the HPA).
-- **ServiceLB (Klipper)** and **local-path** storage provisioner.
-- **SQLite** (or embedded etcd) as the datastore — fine for a single node.
-
-We run a single server node that also schedules workloads (control-plane +
-worker on one host). For HA you would run 3 server nodes with embedded etcd.
+The project runs a single server node that also schedules workloads (control-plane +
+worker on one host).
 
 ## Reproducibility
 
@@ -35,8 +27,7 @@ through a single Kustomization. This gives one entrypoint
 (`kubectl apply -k manifests`) and makes drift visible: what's in Git is what
 should be running.
 
-Kustomize is chosen over Helm deliberately. For a repo this size, Helm's
-templating adds indirection without payoff, and Kustomize ships inside kubectl.
+Kustomize is chosen over Helm deliberately for the initial setup. Next step is adding Helm for CKAD practice.
 
 ## Workload hardening
 
@@ -65,4 +56,4 @@ Neither job needs a live cluster, so CI is fast and free.
   for production. HA path is documented in the README roadmap.
 - **No TLS on the ingress yet.** `podinfo.test` is plain HTTP over the LAN.
 - **`make bootstrap` is a manual push.** The natural next step is GitOps
-  (Argo CD / Flux) so the cluster pulls from this repo automatically.
+  (Argo CD) so the cluster pulls from this repo automatically.
