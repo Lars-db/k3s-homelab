@@ -110,9 +110,3 @@ This is intentionally a lean foundation. Natural extensions:
 - **TLS** — cert-manager + a real domain for HTTPS ingress.
 - **Observability** — kube-prometheus-stack for metrics and dashboards.
 - **Secrets** — Sealed Secrets or External Secrets so secrets can live in Git safely.
-
----
-
-## License
-
-MIT — see [LICENSE](LICENSE).
