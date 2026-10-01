@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Namespace is created first; kubectl apply -k handles ordering for
+# namespaces automatically.
+resources:
+  - 00-namespaces.yaml
+  - podinfo/deployment.yaml
+  - podinfo/service.yaml
+  - podinfo/hpa.yaml
+  - podinfo/ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/part-of: k3s-homelab

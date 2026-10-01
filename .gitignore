@@ -1,0 +1,13 @@
+# Never commit kubeconfigs or secrets
+*.kubeconfig
+kubeconfig
+k3s.yaml
+.kube/
+*.pem
+*.key
+secrets/
+.env
+
+# Editor / OS noise
+.DS_Store
+*.swp
