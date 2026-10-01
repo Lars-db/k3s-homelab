@@ -10,5 +10,7 @@ resources:
   - podinfo/hpa.yaml
   - podinfo/ingress.yaml
 
-commonLabels:
-  app.kubernetes.io/part-of: k3s-homelab
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: k3s-homelab
+    includeSelectors: false
