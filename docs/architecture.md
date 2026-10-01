@@ -63,6 +63,6 @@ Neither job needs a live cluster, so CI is fast and free.
 
 - **Single node = single point of failure.** Acceptable for a homelab/demo; not
   for production. HA path is documented in the README roadmap.
-- **No TLS on the ingress yet.** `podinfo.local` is plain HTTP over the LAN.
+- **No TLS on the ingress yet.** `podinfo.test` is plain HTTP over the LAN.
 - **`make bootstrap` is a manual push.** The natural next step is GitOps
   (Argo CD / Flux) so the cluster pulls from this repo automatically.

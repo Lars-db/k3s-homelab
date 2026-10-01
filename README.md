@@ -34,7 +34,7 @@ repo treats the cluster as cattle, not a pet:
 │        └── podinfo  (Deployment x2 → HPA 2–5, Service, Ingress)              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
-        host: podinfo.local  ──▶  Traefik  ──▶  Service  ──▶  podinfo pods
+        host: podinfo.test  ──▶  Traefik  ──▶  Service  ──▶  podinfo pods
 ```
 
 ---
@@ -78,8 +78,8 @@ kubectl get nodes
 make bootstrap          # == ./scripts/bootstrap.sh
 
 # 4. Reach the app (add the printed line to /etc/hosts on your client)
-#    <node-ip>  podinfo.local
-curl http://podinfo.local
+#    <node-ip>  podinfo.test
+curl http://podinfo.test
 ```
 
 Tear it all down with `make uninstall` (removes k3s and every bit of state).

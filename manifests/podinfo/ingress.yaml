@@ -9,7 +9,10 @@ spec:
   # Traefik ships with k3s as the default ingress controller.
   ingressClassName: traefik
   rules:
-    - host: podinfo.local
+    # NOTE: avoid .local -- Chromium browsers (Chrome/Brave/Edge) resolve
+    # .local hostnames via mDNS/Bonjour instead of /etc/hosts, which breaks
+    # local testing. .test is the IANA-reserved TLD for this purpose.
+    - host: podinfo.test
       http:
         paths:
           - path: /
